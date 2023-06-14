@@ -6,7 +6,7 @@
 #    By: eprusako <eprusako@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/22 16:23:47 by eprusako          #+#    #+#              #
-#    Updated: 2023/06/14 13:52:05 by eprusako         ###   ########.fr        #
+#    Updated: 2023/06/14 16:43:12 by eprusako         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ fclean: clean
 	@echo "$(CYAN)Supressing binary executable"
 	@rm -f $(NAME)
 
-re: all fclean
+re: all clean
 
 %.o: %.c
 	@ $(CC) $(CFLAGS) $(INC) -c $< -o $@

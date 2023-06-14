@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:25:48 by eprusako          #+#    #+#             */
-/*   Updated: 2023/06/14 13:41:51 by eprusako         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:22:45 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,62 @@
 
 
 
-
-/* The x and y coordinates of the rect corresponds to its upper left corner. */
-
-
-int render_mandelbrot(t_img *img, t_pix obj)
+int mandelbrot(t_img *img, t_pix obj)
 {
-	int	i;
-	int j;
+	int	x;
+	int y;
+	double factor_re;
+	double factor_im;
 
-	i = 0;
+	y = 0;
+	x = 0;
+
+
+	factor_re = (obj.max_real - obj.min_real) / (WIN_WIDTH - 1);
+	factor_im = (obj.max_im - obj.min_im) / (WIN_HEIGHT - 1);
+	printf("%Lf factor_im\n%Lf factor_re\n", factor_im, factor_re);
 	
-	while (obj.n < 1000)
+	// printf("%Lf c_im\n%Lf c_real\n", obj.c_im, obj.c_real);
+	
+	while (y < WIN_HEIGHT )
 	{
-		obj.z = obj.z * obj.z + obj.c;
-		if (obj.z >= 2) {
-			img_pix_put(img, obj.c++, obj.z, obj.color);
+		obj.c_im = obj.max_im - y * factor_im;
+		x = 0;
+		while(x < WIN_WIDTH ) {
+			obj.c_real = obj.min_real + x * factor_re;
+			// printf("%Lf c_im\n%Lf c_real\n", obj.c_im, obj.c_real);
+			if (is_in_set(obj.c_real, obj.c_im, obj.c_real, obj.c_im)) {
+				// printf("is in set\n");
+				img_pix_put(img, x, y, obj.color);
+			}
+			x++;
 		}
-		obj.n++;
+		y++;
 	}
 	return (0);
+}
+
+
+int is_in_set(long double z_real, long double z_im, long double c_real, long double c_im)
+{
+	int	i;
+	long double z_re2;
+	long double z_im2;
+
+	i = 0;
+	while (i < MAX_ITERATION)
+	{
+		
+		z_re2 = z_real * z_real;
+		z_im2 = z_im * z_im;
+		if (z_im2 + z_re2 > 4) {
+			return 0;
+		}
+		z_im = 2 * z_real * z_im + c_im;
+		z_real = z_re2 - z_im2 + c_real;
+		i++;
+	}
+	return 1;
 }
 
 int	render(t_data *data)
@@ -42,10 +78,10 @@ int	render(t_data *data)
 		return (1);
 	// render_background(&data->img, WHITE_PIXEL);
 	// render_rect(&data->img, data->rect);
-	// printf("%i h\n%i w\n ", data->rect.height,  data->rect.width);
+	// printf("start\n");
 	
-
-	render_mandelbrot(&data->img, data->obj);
+	
+	mandelbrot(&data->img, data->obj);
 
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
 

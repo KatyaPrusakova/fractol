@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:38:41 by eprusako          #+#    #+#             */
-/*   Updated: 2023/06/14 13:42:09 by eprusako         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:21:50 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,14 @@
 
 # include "libft/libft.h"
 
-#define WIN_WIDTH  1000
-#define WIN_HEIGHT  600
+#define WIN_WIDTH  600
+#define WIN_HEIGHT  300
 #define MLX_ERROR 1
+#define MAX_ITERATION 50
+
+// maybe not needed 
+// #define IMAGENARY_FACTOR 1
+// #define RealFactor (max_re - min_re)/(WIN_WIDTH-1);
 
 // colors
 #define RED_PIXEL 0xFF0000
@@ -55,6 +60,13 @@ typedef struct s_pix
 	int width;
 	int height;
 	int color;
+
+	long double min_real; // minimum real number 
+	long double max_real; // maximum real number
+	long double max_im; // maximum imaginary number
+	long double min_im; // minimum imaginary number
+	long double c_im; // minimum imaginary number
+	long double c_real; // minimum imaginary number
 
     int z;
     int c;

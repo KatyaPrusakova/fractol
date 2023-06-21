@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:38:41 by eprusako          #+#    #+#             */
-/*   Updated: 2023/06/14 18:21:50 by eprusako         ###   ########.fr       */
+/*   Updated: 2023/06/16 12:46:17 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 
 # include "libft/libft.h"
 
-#define WIN_WIDTH  600
-#define WIN_HEIGHT  300
+#define WIN_WIDTH  1600
+#define WIN_HEIGHT  1000
 #define MLX_ERROR 1
 #define MAX_ITERATION 50
 

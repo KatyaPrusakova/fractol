@@ -6,7 +6,7 @@
 /*   By: eprusako <eprusako@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:25:48 by eprusako          #+#    #+#             */
-/*   Updated: 2023/06/14 18:22:45 by eprusako         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:49:56 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,21 @@ int mandelbrot(t_img *img, t_pix obj)
 	x = 0;
 
 
-	factor_re = (obj.max_real - obj.min_real) / (WIN_WIDTH - 1);
-	factor_im = (obj.max_im - obj.min_im) / (WIN_HEIGHT - 1);
-	printf("%Lf factor_im\n%Lf factor_re\n", factor_im, factor_re);
+	factor_re = (obj.max_real - obj.min_real) / (WIN_WIDTH);
+	factor_im = (obj.max_im - obj.min_im) / (WIN_HEIGHT);
 	
 	// printf("%Lf c_im\n%Lf c_real\n", obj.c_im, obj.c_real);
 	
-	while (y < WIN_HEIGHT )
+	while (y < WIN_HEIGHT)
 	{
 		obj.c_im = obj.max_im - y * factor_im;
 		x = 0;
 		while(x < WIN_WIDTH ) {
 			obj.c_real = obj.min_real + x * factor_re;
-			// printf("%Lf c_im\n%Lf c_real\n", obj.c_im, obj.c_real);
-			if (is_in_set(obj.c_real, obj.c_im, obj.c_real, obj.c_im)) {
-				// printf("is in set\n");
+		
+			if (is_in_set(obj.c_real, obj.c_im, &obj)) {
+
+				obj.color = (x<<16)|(y<<8)|0;
 				img_pix_put(img, x, y, obj.color);
 			}
 			x++;
@@ -50,16 +50,22 @@ int mandelbrot(t_img *img, t_pix obj)
 }
 
 
-int is_in_set(long double z_real, long double z_im, long double c_real, long double c_im)
+// TO DO: refactor to pass only obj struct to the function
+int is_in_set(long double z_real, long double z_im, t_pix *obj)
 {
 	int	i;
+	long double c_real;
+	long double c_im;
 	long double z_re2;
 	long double z_im2;
 
 	i = 0;
+	c_real = z_real;
+	c_im = z_im;
+	// printf("%x color\n", obj->color);
+
 	while (i < MAX_ITERATION)
 	{
-		
 		z_re2 = z_real * z_real;
 		z_im2 = z_im * z_im;
 		if (z_im2 + z_re2 > 4) {
@@ -81,6 +87,7 @@ int	render(t_data *data)
 	// printf("start\n");
 	
 	
+	// mandelbrot(&data->img, data->obj);
 	mandelbrot(&data->img, data->obj);
 
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
@@ -112,6 +119,9 @@ int	main(void)
 	
 	mlx_loop_hook(data.mlx_ptr, &render, &data);
 	mlx_hook(data.win_ptr, 2, 1L<<0, &handle_keypress, &data);
+	// mlx_hook(data.win_ptr, 4, 0, mouse_pressed_hook, env);
+	// mlx_hook(data.win_ptr, 5, 0, mouse_released_hook, env);
+	// mlx_hook(data.win_ptr, 6, 0, mouse_moved_hook, env);
 
 	mlx_loop(data.mlx_ptr);
 

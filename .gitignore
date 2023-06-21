@@ -1,5 +1,5 @@
 *.o
 *.a
 *.vscode
-test.c
+*test
 fractol

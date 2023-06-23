@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:38:41 by eprusako          #+#    #+#             */
-/*   Updated: 2023/06/16 12:46:17 by eprusako         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:54:28 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
 # include <stdio.h>
 // # include <stdlib.h>
 // # include <fcntl.h>
-# include <mlx.h>
-
+# include "libmlx/includes/mlx.h"
 # include "libft/libft.h"
 
 #define WIN_WIDTH  1600
@@ -92,11 +91,7 @@ t_pix	init_pix_struct(void);
 int	    handle_keypress(int keysym, t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color);
 int	    render(t_data *data);
-
-// rectangle
-int     render_rect(t_img *img, t_pix rect); // for testing
-t_pix	init_rect(void);
-void	render_background(t_img *img, int color);
+int is_in_set(long double z_real, long double z_im, t_pix *obj);
 
 
 #endif

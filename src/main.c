@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprusako <eprusako@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:25:48 by eprusako          #+#    #+#             */
-/*   Updated: 2023/06/21 15:49:56 by eprusako         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:54:01 by eprusako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	main(void)
 	data.mlx_ptr = mlx_init();
 	if (data.mlx_ptr == NULL)
 		return (MLX_ERROR);
-	data.win_ptr = mlx_new_window(data.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "my window");
+	data.win_ptr = mlx_new_window(data.mlx_ptr, -1, -1, WIN_WIDTH, WIN_HEIGHT, "my window");
 	if (data.win_ptr == NULL)
 	{
 		free(data.win_ptr);

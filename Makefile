@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: eprusako <eprusako@student.42madrid.com    +#+  +:+       +#+         #
+#    By: eprusako <eprusako@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/22 16:23:47 by eprusako          #+#    #+#              #
-#    Updated: 2023/06/14 16:43:12 by eprusako         ###   ########.fr        #
+#    Updated: 2023/06/23 17:51:06 by eprusako         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,14 +32,14 @@ OBJS = $(SRC_FILES:%.c=%.o)
 
 ##INCLUDES
 LIBFT = ./inc/libft/
-MLX = ./inc/mlx/
+MLX = ./inc/libmlx/
 
 
 OS := $(shell uname)
 
 
 INC := -Imlx
-LFLAGS := -lmlx -lm -framework OpenGL -framework AppKit
+LFLAGS := -L $(MLX) -lmlx -lm -framework OpenGL -framework AppKit
 LIBS := ./inc/libft/libft.a
 
 
@@ -49,6 +49,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@echo "$(GREEN)Created binary objects"
 	@make -sC $(LIBFT)
+	@make -sC $(MLX)
 	@echo  "$(GREEN)Creating libraries files"
 	
 	@ $(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBS) $(LFLAGS) 
